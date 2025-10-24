@@ -1,0 +1,44 @@
+{
+  "name": "openinsee",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "frontend/*",
+    "backend/*",
+    "shared/*"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@netlify/functions": "^5.0.1",
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "husky": "^9.1.7"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "bun": ">=1.2.22"
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
+}

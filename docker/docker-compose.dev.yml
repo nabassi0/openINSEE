@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend.dev.Dockerfile
+    container_name: openinsee-backend-dev
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      NODE_ENV: development
+    ports:
+      - '3000:3000'
+    volumes:
+      - ../backend:/app/backend
+      - ../shared:/app/shared
+      - /app/backend/node_modules
+      - /app/shared/node_modules
+    networks:
+      - openinsee-network
+    command: sh -c "cd /app/backend && bun install && bun run dev"
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend.dev.Dockerfile
+    container_name: openinsee-frontend-dev
+    restart: unless-stopped
+    ports:
+      - '5173:5173'
+    volumes:
+      - ../frontend:/app/frontend
+      - ../shared:/app/shared
+      - /app/frontend/node_modules
+      - /app/shared/node_modules
+    networks:
+      - openinsee-network
+    command: sh -c "cd /app/frontend && bun install && bun run dev"
+
+networks:
+  openinsee-network:
+    driver: bridge
